@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belvantage — Étude de cas UI/UX &amp; code · Cino Alessio</title>
+<meta name="description" content="Belvantage, étude de cas UI/UX par Cino Alessio : appli de fidélité mutualisée pour commerces locaux, du prototype Figma (41 écrans, dark mode réel) au code fonctionnel (HTML/CSS/JS, QR Code et scanner caméra réels).">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="https://alessio29-git.github.io/Ui-Ux-designer/belvantage.html">
+<meta property="og:title" content="Belvantage — Étude de cas UI/UX &amp; code · Cino Alessio">
+<meta property="og:description" content="Belvantage : appli de fidélité mutualisée pour commerces locaux, prototype Figma complet et code fonctionnel, QR Code et scanner caméra réels.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alessio29-git.github.io/Ui-Ux-designer/belvantage.html">
+<meta property="og:image" content="https://alessio29-git.github.io/Ui-Ux-designer/img/fidelite-accueil.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Belvantage — Étude de cas UI/UX &amp; code · Cino Alessio">
+<meta name="twitter:description" content="Belvantage : appli de fidélité mutualisée pour commerces locaux, prototype Figma complet et code fonctionnel, QR Code et scanner caméra réels.">
+<meta name="twitter:image" content="https://alessio29-git.github.io/Ui-Ux-designer/img/fidelite-accueil.png">
+<meta name="theme-color" content="#ECEDE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15161A" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://alessio29-git.github.io/Ui-Ux-designer/" },
+    { "@type": "ListItem", "position": 2, "name": "Études de cas", "item": "https://alessio29-git.github.io/Ui-Ux-designer/#etudes-de-cas" },
+    { "@type": "ListItem", "position": 3, "name": "Belvantage" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Belvantage — carte de fidélité mutualisée pour commerces locaux",
+  "description": "Belvantage : appli de fidélité mutualisée pour commerces locaux, prototype Figma complet et code fonctionnel, QR Code et scanner caméra réels.",
+  "creator": { "@type": "Person", "name": "Cino Alessio" },
+  "image": "https://alessio29-git.github.io/Ui-Ux-designer/img/fidelite-accueil.png",
+  "url": "https://alessio29-git.github.io/Ui-Ux-designer/belvantage.html"
+}
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  .breadcrumb { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 20px; }
+  .breadcrumb a { color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .breadcrumb a:hover { color: var(--accent); border-color: var(--accent); }
+  .case-hero { padding: 48px 0 56px; border-top: none; }
+  .case-hero-meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; margin: 28px 0; }
+  .case-hero-meta strong { color: var(--ink); display: block; font-family: var(--font-body); font-size: 0.95rem; margin-top: 2px; }
+  .case-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .shot { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--paper-raised); }
+  .shot img { width: 100%; height: auto; }
+  .shot-caption { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); padding: 12px 4px 0; }
+  .shot-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; margin: 40px 0; }
+  .shot-row.single { grid-template-columns: minmax(0, 420px); justify-content: center; }
+  .step-block { display: grid; grid-template-columns: 64px 1fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); }
+  .step-block:first-child { padding-top: 0; }
+  .step-num { font-family: var(--font-display); font-style: italic; font-size: 2rem; color: var(--accent); }
+  .step-block h3 { font-size: 1.25rem; font-style: italic; font-weight: 500; margin-bottom: 10px; }
+  .next-project { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 40px 0; }
+  .pivot-box { display:flex; flex-wrap:wrap; gap:16px; margin:20px 0; }
+  .pivot-col { flex:1; min-width:220px; border:1px solid var(--line); border-radius:var(--radius-md); padding:18px 20px; }
+  .pivot-col.after { border-color: var(--accent); }
+  .pivot-label { font-family:var(--font-mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color: var(--ink-muted); margin-bottom:8px; display:block; }
+  @media (max-width: 720px) {
+    .shot-row { grid-template-columns: 1fr; }
+    .step-block { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Cino Alessio, UI/UX Designer — retour à l'accueil">
+      <img src="img/ac-logo.png" width="573" height="468" class="logo-mark" alt="">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html#intro" class="nav-link">Intro</a></li>
+        <li><a href="index.html#graphisme" class="nav-link">Graphisme</a></li>
+        <li><a href="index.html#video" class="nav-link">Vidéo</a></li>
+        <li><a href="index.html#personnalite" class="nav-link">Personnalité</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Activer le thème sombre" aria-pressed="false">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <a href="index.html#contact" class="btn btn-primary btn-small">Me contacter</a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section case-hero" aria-labelledby="case-title">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Accueil</a> / <a href="index.html#etudes-de-cas">Études de cas</a> / Belvantage</p>
+
+      <span class="case-tag">Commerce local · Prototype Figma + code fonctionnel, mobile</span>
+      <h1 id="case-title" class="section-title" style="max-width:20ch; font-size:clamp(2rem,4vw,3rem);">Belvantage — une carte de fidélité mutualisée pour les commerces de quartier</h1>
+      <p class="hero-lede" style="max-width:65ch; font-size:1.1rem;">
+        Un constat simple : un petit commerce indépendant n'a ni le budget ni le temps de développer sa
+        propre appli de fidélité, et ses clients finissent avec une pile de cartes en carton qu'ils perdent.
+        Belvantage propose une seule appli mutualisée — chaque client cumule des points chez
+        plusieurs commerces différents, chaque commerçant scanne un QR Code pour attribuer les points,
+        sans rien développer lui-même.
+      </p>
+
+      <div class="case-actions">
+        <a class="btn btn-primary" href="https://www.figma.com/design/FpHQ26TAcnUqean6JJVn6l/App-Fid%C3%A9lit%C3%A9-Locale?node-id=2-16&t=nJcHRwKrs1C71wnm-0" target="_blank" rel="noopener noreferrer">Voir le prototype sur Figma</a>
+        <a class="btn btn-ghost" href="dossier/App-Fidelite-Locale-Dossier-UXUI.pdf" target="_blank" rel="noopener noreferrer">Télécharger le dossier UX/UI (PDF)</a>
+        <a class="btn btn-ghost" href="index.html#etudes-de-cas">← Retour aux études de cas</a>
+      </div>
+
+      <div class="case-hero-meta">
+        <span>Rôle<strong>UI/UX Designer &amp; Développeur</strong></span>
+        <span>Contexte<strong>Projet personnel</strong></span>
+        <span>Outils<strong>Figma, HTML/CSS/JS</strong></span>
+        <span>Portée<strong>41 écrans Figma · 20 pages codées</strong></span>
+        <span>Statut<strong>Prototype + code fonctionnel, sans back-end</strong></span>
+      </div>
+
+      <div class="shot-row">
+        <div class="shot">
+          <img src="img/fidelite-accueil.png" width="420" height="900" alt="Écran d'accueil de l'appli côté client : solde de points, carte de fidélité du commerce principal, liste des commerces suivis">
+        </div>
+        <div class="shot">
+          <img src="img/fidelite-dashboard.png" width="420" height="900" alt="Dashboard côté commerçant : statistiques (clients actifs, points distribués), filtres par période, bouton Scanner un client">
+        </div>
+      </div>
+      <p class="shot-caption" style="margin-top:-24px; margin-bottom:32px;">Deux expériences distinctes dans une seule appli : le parcours Client (à gauche) et le parcours Commerçant (à droite).</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="demarche-title">
+    <div class="container">
+      <p class="section-eyebrow">La démarche</p>
+      <h2 id="demarche-title" class="section-title">Du cadrage au code, avec une décision qui a tout changé en cours de route</h2>
+
+      <div class="step-block">
+        <span class="step-num">01</span>
+        <div>
+          <h3>Cadrage</h3>
+          <p>Le produit n'appartient à aucun commerce en particulier : c'est une plateforme mutualisée pensée pour accueillir n'importe quel commerce local — boulangerie, café, institut, artisan. Deux profils avec des besoins opposés : le client qui veut cumuler des points sans complexité, le commerçant qui veut fidéliser sans rien développer.</p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <span class="step-num">02</span>
+        <div>
+          <h3>Le pivot QR Code</h3>
+          <p>La première version du parcours de validation reposait uniquement sur un code à 4 chiffres donné oralement par le commerçant — fonctionnel, mais avec de la friction. Un benchmark sur Starbucks Rewards a confirmé qu'un mécanisme « scanner le QR, les points s'ajoutent automatiquement » réduisait cette friction pour tout le monde, pas seulement pour un public technophile. Le QR Code est devenu le parcours principal ; le code à 4 chiffres reste disponible comme solution de secours, jamais supprimé.</p>
+        </div>
+      </div>
+
+      <div class="shot-row single">
+        <div class="shot">
+          <img src="img/fidelite-qrcode.png" width="420" height="900" loading="lazy" decoding="async" alt="Écran Mon QR Code côté client : QR Code réel généré en JavaScript, encodant l'identifiant unique du client, avec lien de secours vers la saisie manuelle">
+        </div>
+      </div>
+      <p class="shot-caption" style="text-align:center; margin-top:-16px; margin-bottom:32px;">Le vrai QR Code, généré côté client — chaque personne a un code unique et permanent, sur le modèle d'une carte de membre Basic Fit.</p>
+
+      <div class="step-block">
+        <span class="step-num">03</span>
+        <div>
+          <h3>Deux parcours, un seul design system</h3>
+          <p>Plutôt que deux projets séparés, un seul Design System (couleurs, typographie, composants) alimente les deux expériences. Le Dashboard commerçant devait surtout paraître crédible pour un vrai indépendant : filtres 7/30/90 jours avec de vraies données différentes par période, action principale (« Scanner un client ») mise en avant plutôt que cachée dans un menu.</p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <span class="step-num">04</span>
+        <div>
+          <h3>Un vrai dark mode, pas un habillage</h3>
+          <p>Premier essai naïf : dupliquer chaque écran en version sombre — vite ingérable, incohérent avec la vraie méthode. La bonne solution s'est trouvée dans le mécanisme natif de Figma (<code>SET_VARIABLE_MODE</code>) : un seul jeu d'écrans, un interrupteur qui bascule instantanément toutes les couleurs liées aux variables — aucune duplication. Rejoué à l'identique en code avec une simple classe CSS globale.</p>
+        </div>
+      </div>
+
+      <div class="shot-row single">
+        <div class="shot">
+          <img src="img/fidelite-darkmode.png" width="420" height="900" loading="lazy" decoding="async" alt="Écran d'accueil en mode sombre : fond gris très foncé, cartes légèrement plus claires pour créer une hiérarchie visuelle, sans jamais utiliser de noir pur">
+        </div>
+      </div>
+      <p class="shot-caption" style="text-align:center; margin-top:-16px; margin-bottom:32px;">Mode sombre réel — fond et surfaces suivent les recommandations Material Design (surfaces plus claires que le fond, jamais de noir pur).</p>
+
+      <div class="step-block">
+        <span class="step-num">05</span>
+        <div>
+          <h3>Du Figma au code fonctionnel</h3>
+          <p>Le prototype Figma terminé, le projet est passé en HTML/CSS/JS pur — volontairement sans framework, pour rester lisible et modifiable sans outillage complexe. Le QR Code et le scanner caméra du commerçant sont réellement fonctionnels : accès à la caméra du navigateur, décodage d'image en temps réel, tout en JavaScript natif.</p>
+        </div>
+      </div>
+
+      <div class="shot-row single">
+        <div class="shot">
+          <img src="img/fidelite-scanner.png" width="420" height="900" loading="lazy" decoding="async" alt="Écran Scanner côté commerçant : flux caméra réel actif dans le navigateur, cadre de visée pour le QR Code, bouton lampe torche et lien vers la saisie manuelle">
+        </div>
+      </div>
+      <p class="shot-caption" style="text-align:center; margin-top:-16px; margin-bottom:32px;">Le scanner utilise la vraie caméra du navigateur (<code>getUserMedia</code>) — pas une simulation visuelle.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="visual-title">
+    <div class="container">
+      <p class="section-eyebrow">Design visuel</p>
+      <h2 id="visual-title" class="section-title">Un Design System construit pour être réutilisé</h2>
+      <p class="section-lede">32 composants avec variants documentés dans Figma, un système d'icônes mappé 1:1 sur la librairie open-source Lucide pour un transfert direct vers le code.</p>
+
+      <div class="tabs" data-tabs>
+        <div class="tab-list" role="tablist" aria-label="Aspects du design visuel">
+          <button class="tab-btn is-active" role="tab" id="tab-wireframe" aria-controls="panel-wireframe" aria-selected="true">Récompenses</button>
+          <button class="tab-btn" role="tab" id="tab-mockup" aria-controls="panel-mockup" aria-selected="false" tabindex="-1">Accessibilité</button>
+          <button class="tab-btn" role="tab" id="tab-system" aria-controls="panel-system" aria-selected="false" tabindex="-1">Design system</button>
+        </div>
+
+        <div class="tab-panel is-active" id="panel-wireframe" role="tabpanel" aria-labelledby="tab-wireframe">
+          <div class="shot-row single">
+            <div class="shot">
+              <img src="img/fidelite-recompenses.png" width="420" height="900" loading="lazy" decoding="async" alt="Écran Mes récompenses : deux récompenses disponibles, une verrouillée avec message « il te manque 40 points », historique des échanges">
+            </div>
+          </div>
+          <p class="visual-caption">Distinction volontaire entre récompense disponible, verrouillée (avec le nombre de points manquants affiché) et déjà échangée.</p>
+        </div>
+
+        <div class="tab-panel" id="panel-mockup" role="tabpanel" aria-labelledby="tab-mockup" hidden>
+          <div class="system-grid">
+            <div class="swatch-group">
+              <span class="swatch" style="background:#111827">16.3:1</span>
+              <span class="swatch" style="background:#DC2626">4.8:1</span>
+              <span class="swatch swatch-light" style="background:#F59E0B; color:#111;">8.3:1</span>
+            </div>
+          </div>
+          <p class="visual-caption">Un vrai audit de contraste WCAG a été mené sur les paires de couleurs clés — un défaut a d'ailleurs été détecté (texte blanc sur badge orange, 2,15:1, non conforme) puis corrigé en direct pendant l'audit.</p>
+        </div>
+
+        <div class="tab-panel" id="panel-system" role="tabpanel" aria-labelledby="tab-system" hidden>
+          <div class="system-grid">
+            <div class="swatch-group">
+              <span class="swatch" style="background:#2563EB">Primary Blue</span>
+              <span class="swatch" style="background:#F59E0B">Accent Orange</span>
+              <span class="swatch" style="background:#111827">Neutral 900</span>
+              <span class="swatch swatch-light" style="background:#F7F8FA">Background</span>
+            </div>
+            <div class="type-scale">
+              <p class="ts-display">Titre — Inter 800</p>
+              <p class="ts-body">Texte courant — Inter, 14–16px</p>
+              <p class="ts-mono">LABELS &amp; BADGES — Inter Semi Bold</p>
+            </div>
+            <div class="component-row">
+              <button class="btn btn-primary" type="button" disabled>Bouton primaire</button>
+              <button class="btn btn-ghost" type="button" disabled>Bouton secondaire</button>
+              <span class="badge">Badge</span>
+            </div>
+          </div>
+          <p class="visual-caption">Extrait du Design System : palette, échelle typographique et composants — les mêmes variables pilotent le mode clair et le mode sombre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="research-title">
+    <div class="container">
+      <p class="section-eyebrow">Recherche &amp; benchmark</p>
+      <h2 id="research-title" class="section-title">Une recherche honnête plutôt qu'un faux sondage</h2>
+      <p class="section-lede">Sans client réel ni panel d'utilisateurs pour ce projet personnel, la recherche s'appuie sur des données secondaires publiques et un vrai benchmark concurrentiel — pas sur des statistiques inventées.</p>
+
+      <div class="research-grid">
+        <div class="research-card">
+          <p class="research-label">Donnée secondaire</p>
+          <h3>Baromètre Fidme 2024</h3>
+          <p>Un foyer possède en moyenne 16 cartes de fidélité et n'en utilise que 2 par semaine — le point de départ qui justifie une appli mutualisée plutôt qu'une carte de plus.</p>
+        </div>
+        <div class="research-card">
+          <p class="research-label">Concurrent direct</p>
+          <h3>Fidme</h3>
+          <p>Numérise des cartes de fidélité qui existent déjà. Ne résout pas le problème du commerçant qui n'a aucun programme digital à numériser — l'angle mort que ce projet vient combler.</p>
+        </div>
+        <div class="research-card">
+          <p class="research-label">Inspiration hors secteur</p>
+          <h3>Too Good To Go</h3>
+          <p>Principe de découverte géolocalisée sans friction, repris pour l'écran Découverte du projet.</p>
+        </div>
+        <div class="research-card">
+          <p class="research-label">Inspiration hors secteur</p>
+          <h3>Starbucks Rewards</h3>
+          <p>« Scannez votre QR code en caisse » — exactement le mécanisme retenu comme parcours principal de validation des points.</p>
+        </div>
+      </div>
+
+      <div class="pivot-box">
+        <div class="pivot-col">
+          <span class="pivot-label">Avant</span>
+          Code à 4 chiffres uniquement, communiqué à l'oral entre client et commerçant.
+        </div>
+        <div class="pivot-col after">
+          <span class="pivot-label">Après</span>
+          QR Code comme parcours principal, code manuel conservé comme filet de sécurité.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="interaction-title">
+    <div class="container">
+      <p class="section-eyebrow">Conception d'interaction</p>
+      <h2 id="interaction-title" class="section-title">Des micro-interactions testées, pas juste dessinées</h2>
+      <p class="section-lede">Un audit systématique du prototype a permis de trouver de vrais défauts avant qu'ils n'atteignent le code : boutons sans destination, écrans sans retour possible, actions sensibles sans confirmation.</p>
+
+      <div class="interaction-demos">
+
+        <div class="demo-card">
+          <h3>Confirmation avant action sensible</h3>
+          <p>Échanger une récompense ou se déconnecter déclenchait l'action en un seul tap — une étape de confirmation annulable a été ajoutée aux deux.</p>
+          <button class="demo-btn" id="demoLikeBtn" type="button" aria-pressed="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14Z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+            <span id="demoLikeLabel">Échanger</span>
+          </button>
+        </div>
+
+        <div class="demo-card">
+          <h3>Saisie du code manuel</h3>
+          <p>Fallback si le QR Code ne fonctionne pas — validation en temps réel, jamais présenté comme le parcours par défaut.</p>
+          <label for="demoCode" class="demo-label">Code à 4 chiffres</label>
+          <input type="text" id="demoCode" class="demo-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="4832" aria-describedby="demoCodeHint">
+          <p id="demoCodeHint" class="demo-hint" aria-live="polite">Saisissez un code à 4 chiffres pour voir la validation en direct.</p>
+        </div>
+
+        <div class="demo-card">
+          <h3>Interrupteur mode sombre</h3>
+          <p>Le vrai composant utilisé sur les écrans Profil — état visible, libellé explicite, support clavier complet.</p>
+          <div class="demo-switch-row">
+            <span id="switchLabel">Mode sombre</span>
+            <button type="button" class="switch" id="demoSwitch" role="switch" aria-checked="false" aria-labelledby="switchLabel">
+              <span class="switch-knob"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <h3>Validation en cours</h3>
+          <p>Écran de chargement du scanner — bascule automatiquement vers l'écran suivant après un court délai, jamais un cul-de-sac.</p>
+          <button class="btn btn-ghost btn-small" id="demoLoadBtn" type="button">Lancer la démo</button>
+          <div class="demo-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="demoProgress">
+            <div class="demo-progress-bar" id="demoProgressBar"></div>
+          </div>
+          <p class="demo-progress-status" id="demoProgressStatus" aria-live="polite">Prêt.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="suite-title">
+    <div class="container">
+      <p class="section-eyebrow">Et ensuite</p>
+      <h2 id="suite-title" class="section-title">Prochaine étape : une vraie base de données</h2>
+      <p class="section-lede">Le code fonctionne avec des données factices stockées dans le navigateur — chaque identifiant de QR Code est unique et permanent, mais rien n'est encore partagé entre appareils. La suite prévue : brancher une vraie base de données (Supabase) pour de vrais comptes utilisateurs, et ajouter les écrans d'erreur réseau déjà conçus dans le prototype Figma mais pas encore codés.</p>
+
+      <div class="protocol-block" style="margin-bottom:32px;">
+        <h3>Un concept ouvert à la discussion</h3>
+        <p>Belvantage est un projet personnel — un concept complet, du prototype Figma au code fonctionnel, mais qui n'appartient à aucun commerce en particulier et n'est pas (encore) un produit commercial lancé. Si vous êtes un commerce, une entreprise ou un porteur de projet intéressé par cette idée — reprise, licence, ou collaboration pour la développer ensemble — n'hésitez pas à <a href="index.html#contact" style="color:var(--accent); text-decoration:underline;">me contacter</a> pour en discuter.</p>
+      </div>
+
+      <div class="next-project">
+        <a class="btn btn-ghost" href="index.html#etudes-de-cas">← Retour aux études de cas</a>
+        <a class="btn btn-primary" href="index.html#contact">Discuter d'un projet similaire</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> Cino Alessio. Tous droits réservés.</p>
+    <p class="colophon">Fraunces &amp; Hanken Grotesk. Codé à la main, sans framework.</p>
+    <a href="index.html#top" class="back-to-top">Retour à l'accueil ↑</a>
+  </div>
+</footer>
+
+<button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Retour en haut de page">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>
