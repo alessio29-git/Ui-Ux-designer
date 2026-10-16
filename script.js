@@ -3,6 +3,66 @@
 
   var root = document.documentElement;
 
+  /* ---------- Textes affichés par le JavaScript, en 3 langues ---------- */
+  var STRINGS = {
+    fr: {
+      themeLight: 'Activer le thème clair', themeDark: 'Activer le thème sombre',
+      menuOpen: 'Ouvrir le menu', menuClose: 'Fermer le menu',
+      like: "J'aime", liked: 'Aimé !',
+      emailIdle: T.emailIdle,
+      emailOk: T.emailOk, emailBad: T.emailBad,
+      codeIdle: T.codeIdle,
+      codeOk: T.codeOk, codeBad: T.codeBad,
+      loading: T.loading, done: T.done,
+      formInvalid: T.formInvalid,
+      formNoKey: T.formNoKey,
+      formSending: T.formSending,
+      formOk: T.formOk,
+      formFail: "L'envoi a échoué : ", formRetry: 'réessayez plus tard.',
+      formOffline: T.formOffline,
+      formSubject: 'Nouveau message depuis le portfolio',
+      loaderCity: 'Bruxelles', loaderLoading: 'Chargement', cursorView: 'Voir'
+    },
+    nl: {
+      themeLight: 'Licht thema activeren', themeDark: 'Donker thema activeren',
+      menuOpen: 'Menu openen', menuClose: 'Menu sluiten',
+      like: 'Leuk', liked: 'Geliket!',
+      emailIdle: 'Vul een geldig adres in om de live validatie te zien.',
+      emailOk: 'Geldig e-mailadres.', emailBad: 'Ongeldig formaat — voorbeeld: naam@voorbeeld.be',
+      codeIdle: 'Vul een code van 4 cijfers in om de live validatie te zien.',
+      codeOk: 'Geldige code.', codeBad: 'De code moet precies 4 cijfers bevatten.',
+      loading: 'Bezig met laden…', done: 'Klaar!',
+      formInvalid: 'Gelieve alle velden correct in te vullen.',
+      formNoKey: 'Formulier niet geconfigureerd: voeg je Web3Forms-sleutel toe.',
+      formSending: 'Bezig met verzenden…',
+      formOk: 'Bedankt! Uw bericht is goed verzonden. Antwoord binnen 24 uur.',
+      formFail: 'Verzenden mislukt: ', formRetry: 'probeer later opnieuw.',
+      formOffline: 'Geen verbinding. Probeer later opnieuw of stuur rechtstreeks een e-mail.',
+      formSubject: 'Nieuw bericht via het portfolio (NL)',
+      loaderCity: 'Brussel', loaderLoading: 'Laden', cursorView: 'Bekijk'
+    },
+    en: {
+      themeLight: 'Switch to light theme', themeDark: 'Switch to dark theme',
+      menuOpen: 'Open menu', menuClose: 'Close menu',
+      like: 'Like', liked: 'Liked!',
+      emailIdle: 'Type a valid address to see live validation.',
+      emailOk: 'Valid email address.', emailBad: 'Invalid format — example: name@example.com',
+      codeIdle: 'Type a 4-digit code to see live validation.',
+      codeOk: 'Valid code.', codeBad: 'The code must contain exactly 4 digits.',
+      loading: 'Loading…', done: 'Done!',
+      formInvalid: 'Please fill in all fields correctly.',
+      formNoKey: 'Form not configured: add your Web3Forms key.',
+      formSending: 'Sending…',
+      formOk: 'Thank you! Your message has been sent. I reply within 24 hours.',
+      formFail: 'Sending failed: ', formRetry: 'please try again later.',
+      formOffline: 'No connection. Please try again later or email me directly.',
+      formSubject: 'New message from the portfolio (EN)',
+      loaderCity: 'Brussels', loaderLoading: 'Loading', cursorView: 'View'
+    }
+  };
+  var lang = (root.getAttribute('lang') || 'fr').slice(0, 2);
+  var T = STRINGS[lang] || STRINGS.fr;
+
   /* ---------- Thème clair / sombre ---------- */
   var themeToggle = document.getElementById('themeToggle');
   var storedTheme = null;
@@ -26,7 +86,7 @@
     var current = root.getAttribute('data-theme') || (prefersDark ? 'dark' : 'light');
     var isDark = current === 'dark';
     themeToggle.setAttribute('aria-pressed', String(isDark));
-    themeToggle.setAttribute('aria-label', isDark ? 'Activer le thème clair' : 'Activer le thème sombre');
+    themeToggle.setAttribute('aria-label', isDark ? T.themeLight : T.themeDark);
   }
 
   /* ---------- Menu mobile ---------- */
@@ -36,14 +96,14 @@
   function closeMobileMenu(returnFocus) {
     mainNav.classList.remove('is-open');
     menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Ouvrir le menu');
+    menuToggle.setAttribute('aria-label', T.menuOpen);
     if (returnFocus) menuToggle.focus();
   }
 
   menuToggle.addEventListener('click', function () {
     var isOpen = mainNav.classList.toggle('is-open');
     menuToggle.setAttribute('aria-expanded', String(isOpen));
-    menuToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+    menuToggle.setAttribute('aria-label', isOpen ? T.menuClose : T.menuOpen);
     if (isOpen) {
       var firstLink = mainNav.querySelector('.nav-link');
       if (firstLink) firstLink.focus();
@@ -245,7 +305,7 @@
     likeBtn.addEventListener('click', function () {
       var isPressed = likeBtn.getAttribute('aria-pressed') === 'true';
       likeBtn.setAttribute('aria-pressed', String(!isPressed));
-      likeLabel.textContent = isPressed ? "J'aime" : 'Aimé !';
+      likeLabel.textContent = isPressed ? (likeLabel.getAttribute('data-off') || T.like) : (likeLabel.getAttribute('data-on') || T.liked);
     });
   }
 
@@ -259,19 +319,19 @@
       var value = demoEmail.value.trim();
       if (!value) {
         demoEmail.classList.remove('is-valid', 'is-invalid');
-        demoEmailHint.textContent = 'Saisissez une adresse valide pour voir la validation en direct.';
+        demoEmailHint.textContent = T.emailIdle;
         demoEmailHint.className = 'demo-hint';
         return;
       }
       if (emailPattern.test(value)) {
         demoEmail.classList.add('is-valid');
         demoEmail.classList.remove('is-invalid');
-        demoEmailHint.textContent = 'Adresse e-mail valide.';
+        demoEmailHint.textContent = T.emailOk;
         demoEmailHint.className = 'demo-hint valid';
       } else {
         demoEmail.classList.add('is-invalid');
         demoEmail.classList.remove('is-valid');
-        demoEmailHint.textContent = 'Format invalide — exemple : prenom@exemple.com';
+        demoEmailHint.textContent = T.emailBad;
         demoEmailHint.className = 'demo-hint invalid';
       }
     });
@@ -288,19 +348,19 @@
       var value = demoCode.value;
       if (!value) {
         demoCode.classList.remove('is-valid', 'is-invalid');
-        demoCodeHint.textContent = 'Saisissez un code à 4 chiffres pour voir la validation en direct.';
+        demoCodeHint.textContent = T.codeIdle;
         demoCodeHint.className = 'demo-hint';
         return;
       }
       if (codePattern.test(value)) {
         demoCode.classList.add('is-valid');
         demoCode.classList.remove('is-invalid');
-        demoCodeHint.textContent = 'Code valide.';
+        demoCodeHint.textContent = T.codeOk;
         demoCodeHint.className = 'demo-hint valid';
       } else {
         demoCode.classList.add('is-invalid');
         demoCode.classList.remove('is-valid');
-        demoCodeHint.textContent = 'Le code doit contenir exactement 4 chiffres.';
+        demoCodeHint.textContent = T.codeBad;
         demoCodeHint.className = 'demo-hint invalid';
       }
     });
@@ -327,7 +387,7 @@
       if (loadInterval) clearInterval(loadInterval);
       var progress = 0;
       demoLoadBtn.disabled = true;
-      demoProgressStatus.textContent = 'Chargement en cours…';
+      demoProgressStatus.textContent = T.loading;
 
       loadInterval = setInterval(function () {
         progress += Math.random() * 18 + 8;
@@ -335,7 +395,7 @@
           progress = 100;
           clearInterval(loadInterval);
           demoLoadBtn.disabled = false;
-          demoProgressStatus.textContent = 'Terminé !';
+          demoProgressStatus.textContent = T.done;
         }
         demoProgressBar.style.width = progress + '%';
         demoProgress.setAttribute('aria-valuenow', String(Math.round(progress)));
@@ -354,21 +414,21 @@
       if (!contactForm.checkValidity()) {
         contactForm.reportValidity();
         formStatus.classList.add('is-error');
-        formStatus.textContent = 'Merci de compléter tous les champs correctement.';
+        formStatus.textContent = T.formInvalid;
         return;
       }
 
       var accessKey = contactForm.querySelector('input[name="access_key"]').value;
       if (!accessKey || accessKey.indexOf('COLLEZ_VOTRE_CLE') === 0) {
         formStatus.classList.add('is-error');
-        formStatus.textContent = 'Formulaire non configuré : ajoutez votre clé Web3Forms dans index.html.';
+        formStatus.textContent = T.formNoKey;
         return;
       }
 
       var submitBtn = contactForm.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
       formStatus.classList.remove('is-error');
-      formStatus.textContent = 'Envoi en cours…';
+      formStatus.textContent = T.formSending;
 
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -386,16 +446,16 @@
         .then(function (data) {
           if (data.success) {
             formStatus.classList.remove('is-error');
-            formStatus.textContent = 'Merci ! Votre message a bien été envoyé. Réponse sous 24h.';
+            formStatus.textContent = T.formOk;
             contactForm.reset();
           } else {
             formStatus.classList.add('is-error');
-            formStatus.textContent = "L'envoi a échoué : " + (data.message || 'réessayez plus tard.');
+            formStatus.textContent = T.formFail + (data.message || T.formRetry);
           }
         })
         .catch(function () {
           formStatus.classList.add('is-error');
-          formStatus.textContent = 'Connexion impossible. Réessayez plus tard ou écrivez directement par e-mail.';
+          formStatus.textContent = T.formOffline;
         })
         .finally(function () {
           submitBtn.disabled = false;
@@ -495,9 +555,9 @@
 
     if (root.classList.contains('show-loader') && document.querySelector('.hero')) {
       curtain.innerHTML =
-        '<div class="loader-top"><span>Portfolio</span><span>Bruxelles — ' + new Date().getFullYear() + '</span></div>' +
+        '<div class="loader-top"><span>Portfolio</span><span>' + T.loaderCity + ' — ' + new Date().getFullYear() + '</span></div>' +
         '<div><div class="loader-name"><span>Cino Alessio</span><span>UI/UX Designer</span></div><div class="loader-bar"></div></div>' +
-        '<div class="loader-bottom"><span>Chargement</span><span class="loader-count">0</span></div>';
+        '<div class="loader-bottom"><span>\x27 + T.loaderLoading + \x27</span><span class="loader-count">0</span></div>';
       var countEl = curtain.querySelector('.loader-count');
       var barEl = curtain.querySelector('.loader-bar');
       var loaderStart = null;
@@ -649,7 +709,7 @@
     cursorRing.className = 'cursor-ring';
     cursorDot.setAttribute('aria-hidden', 'true');
     cursorRing.setAttribute('aria-hidden', 'true');
-    cursorRing.innerHTML = '<span>Voir</span>';
+    cursorRing.innerHTML = '<span>' + T.cursorView + '</span>';
     document.body.appendChild(cursorDot);
     document.body.appendChild(cursorRing);
 
@@ -757,9 +817,11 @@
   }
 
   /* ---------- Mode hors ligne (service worker, uniquement sur le site en ligne) ---------- */
+  // sw.js est à la racine du site, même depuis /nl/ ou /en/ : on part de l'adresse de ce script
+  var swUrl = new URL('sw.js', (document.currentScript && document.currentScript.src) || window.location.href).href;
   if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () { /* navigateur non compatible : le site marche quand même */ });
+      navigator.serviceWorker.register(swUrl).catch(function () { /* navigateur non compatible : le site marche quand même */ });
     });
   }
 

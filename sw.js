@@ -4,7 +4,7 @@
 'use strict';
 
 // Changer ce numéro force les visiteurs à repartir d'un cache propre
-var CACHE = 'cino-v2';
+var CACHE = 'cino-v3';
 
 var PRECACHE = [
   './',
@@ -15,6 +15,8 @@ var PRECACHE = [
   'intro.js',
   '404.js',
   'game.js',
+  'page-i18n.js',
+  '404-base.js',
   'favicon.svg',
   'img/ac-logo.png'
 ];

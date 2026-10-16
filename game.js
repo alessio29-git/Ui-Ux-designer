@@ -19,6 +19,20 @@
 
   // Écran tactile (téléphone, tablette) ou clavier : change uniquement le texte d'aide
   var isTouch = window.matchMedia('(pointer: coarse)').matches;
+  // Textes du jeu en 3 langues (la langue est fixée par page-i18n.js)
+  var GT = {
+    fr: { jump: 'Sauter', replay: 'Rejouer', over: 'Partie terminée. Score : ', bestLbl: '. Meilleur score : ', hiscore: 'MEILLEUR ',
+          intro: 'Évitez les bugs, sautez les pop-ups.', touchPlay: 'Touchez l’écran pour jouer et sauter', keyPlay: 'Barre espace pour jouer et sauter',
+          crash: 'Bug en production !', record: ' · nouveau record', touch: 'touchez', key: 'barre espace', replayHint: ' pour rejouer' },
+    nl: { jump: 'Springen', replay: 'Opnieuw', over: 'Spel voorbij. Score: ', bestLbl: '. Beste score: ', hiscore: 'RECORD ',
+          intro: 'Ontwijk de bugs, spring over de pop-ups.', touchPlay: 'Tik op het scherm om te spelen en te springen', keyPlay: 'Spatiebalk om te spelen en te springen',
+          crash: 'Bug in productie!', record: ' · nieuw record', touch: 'tik', key: 'spatiebalk', replayHint: ' om opnieuw te spelen' },
+    en: { jump: 'Jump', replay: 'Play again', over: 'Game over. Score: ', bestLbl: '. Best score: ', hiscore: 'BEST ',
+          intro: 'Dodge the bugs, jump the pop-ups.', touchPlay: 'Tap the screen to play and jump', keyPlay: 'Space bar to play and jump',
+          crash: 'Bug in production!', record: ' · new record', touch: 'tap', key: 'space bar', replayHint: ' to play again' }
+  };
+  var G = GT[(document.documentElement.getAttribute('lang') || 'fr').slice(0, 2)] || GT.fr;
+
   var GRAVITY = 2600;     // px/s²
   var JUMP = -820;        // px/s
   var BG_WORDS = ['Lorem', 'ipsum', 'Figma', 'UX', 'pixel', 'grid', 'Aa', '#1E3AF5', 'H1', '16px'];
@@ -99,7 +113,7 @@
     reset();
     state = 'running';
     lastTime = null;
-    if (playBtn) playBtn.textContent = 'Sauter';
+    if (playBtn) playBtn.textContent = G.jump;
     window.requestAnimationFrame(tick);
   }
 
@@ -110,10 +124,10 @@
       best = s;
       try { localStorage.setItem('gameBest', String(best)); } catch (e) { /* stockage indisponible */ }
     }
-    if (playBtn) playBtn.textContent = 'Rejouer';
+    if (playBtn) playBtn.textContent = G.replay;
     if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
     var live = document.getElementById('gameStatus');
-    if (live) live.textContent = 'Partie terminée. Score : ' + s + '. Meilleur score : ' + best + '.';
+    if (live) live.textContent = G.over + s + G.bestLbl + best + '.';
     draw();
   }
 
@@ -272,7 +286,7 @@
     ctx.textBaseline = 'top';
     ctx.fillStyle = colors.muted;
     var pad = function (n) { return ('00000' + n).slice(-5); };
-    ctx.fillText('MEILLEUR ' + pad(best) + '   ' + pad(player ? score() : 0), W - 14, 12);
+    ctx.fillText(G.hiscore + pad(best) + '   ' + pad(player ? score() : 0), W - 14, 12);
 
     // Messages
     ctx.textAlign = 'center';
@@ -280,17 +294,17 @@
     if (state === 'ready') {
       ctx.fillStyle = colors.ink;
       ctx.font = '500 ' + (W < 600 ? 17 : 22) + 'px Fraunces, Georgia, serif';
-      ctx.fillText('Évitez les bugs, sautez les pop-ups.', W / 2, H / 2 - 22);
+      ctx.fillText(G.intro, W / 2, H / 2 - 22);
       ctx.fillStyle = colors.muted;
       ctx.font = '12px "IBM Plex Mono", monospace';
-      ctx.fillText(isTouch ? 'Touchez l’écran pour jouer et sauter' : 'Barre espace pour jouer et sauter', W / 2, H / 2 + 6);
+      ctx.fillText(isTouch ? G.touchPlay : G.keyPlay, W / 2, H / 2 + 6);
     } else if (state === 'over') {
       ctx.fillStyle = colors.danger;
       ctx.font = '600 ' + (W < 600 ? 20 : 26) + 'px Fraunces, Georgia, serif';
-      ctx.fillText('Bug en production !', W / 2, H / 2 - 24);
+      ctx.fillText(G.crash, W / 2, H / 2 - 24);
       ctx.fillStyle = colors.muted;
       ctx.font = '12px "IBM Plex Mono", monospace';
-      ctx.fillText('Score ' + score() + (score() >= best && score() > 0 ? ' · nouveau record' : '') + ' · ' + (isTouch ? 'touchez' : 'barre espace') + ' pour rejouer', W / 2, H / 2 + 4);
+      ctx.fillText('Score ' + score() + (score() >= best && score() > 0 ? G.record : '') + ' · ' + (isTouch ? G.touch : G.key) + G.replayHint, W / 2, H / 2 + 4);
     }
   }
 
