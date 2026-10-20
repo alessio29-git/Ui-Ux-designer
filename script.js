@@ -557,7 +557,7 @@
       curtain.innerHTML =
         '<div class="loader-top"><span>Portfolio</span><span>' + T.loaderCity + ' — ' + new Date().getFullYear() + '</span></div>' +
         '<div><div class="loader-name"><span>Cino Alessio</span><span>UI/UX Designer</span></div><div class="loader-bar"></div></div>' +
-        '<div class="loader-bottom"><span>\x27 + T.loaderLoading + \x27</span><span class="loader-count">0</span></div>';
+        '<div class="loader-bottom"><span>' + T.loaderLoading + '</span><span class="loader-count">0</span></div>';
       var countEl = curtain.querySelector('.loader-count');
       var barEl = curtain.querySelector('.loader-bar');
       var loaderStart = null;

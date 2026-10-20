@@ -18,7 +18,7 @@
   var D = {
     nl: {
       skip: 'Naar de hoofdinhoud',
-      'nav-services': 'Diensten', 'nav-work': 'Projecten', 'nav-process': 'Werkwijze',
+      'nav-services': 'Diensten', 'nav-work': 'Projecten', 'nav-process': 'Werkwijze', 'nav-skills': 'Vaardigheden',
       'nav-about': 'Over mij', 'nav-faq': 'Vragen', 'nav-contact': 'Contact',
       'cta-contact': 'Contact opnemen',
       hint: 'Beweeg er met de muis (of je vinger) over. Klik om alles te laten ontploffen.',
@@ -49,7 +49,7 @@
     },
     en: {
       skip: 'Skip to main content',
-      'nav-services': 'Services', 'nav-work': 'Work', 'nav-process': 'Process',
+      'nav-services': 'Services', 'nav-work': 'Work', 'nav-process': 'Process', 'nav-skills': 'Skills',
       'nav-about': 'About', 'nav-faq': 'FAQ', 'nav-contact': 'Contact',
       'cta-contact': 'Get in touch',
       hint: 'Hover over it with your mouse (or finger). Click to make it all explode.',
