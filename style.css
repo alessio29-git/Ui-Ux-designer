@@ -865,33 +865,15 @@ code { font-family: var(--font-mono); font-size: 0.9em; }
 .brand-palette span { width: 28px; height: 28px; border-radius: var(--radius-sm); border: 1px solid rgba(241,236,227,0.3); }
 .graphic-content h3 { font-size: 1.5rem; font-style: italic; font-weight: 500; margin-bottom: 12px; }
 
-/* Galerie : colonnes proportionnelles au format de chaque image
-   (A4 paysage 1.414, A4 portrait 0.707, carrés 1) → même hauteur sur une ligne */
-.graphic-gallery-title { font-size: 1.25rem; font-style: italic; font-weight: 500; margin: 64px 0 20px; }
-.graphic-gallery {
-  display: grid;
-  grid-template-columns: 1.414fr 0.707fr 1fr 1fr;
-  gap: 16px;
-  align-items: start;
-}
-.gallery-item { margin: 0; min-width: 0; }
-.gallery-item a {
-  display: block;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--paper-raised);
-}
-.gallery-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform var(--transition-base);
-}
-.gallery-item a:hover img, .gallery-item a:focus-visible img { transform: scale(1.03); }
-.gallery-logo a { background: #fff; padding: 8%; }
-.gallery-item figcaption { margin-top: 8px; color: var(--ink); font-size: 0.85rem; line-height: 1.4; }
-.gallery-item figcaption .case-tag { display: block; margin-bottom: 2px; font-size: 0.66rem; }
+/* Autres créations : même mise en page que le logo Ô Natur'Elle, alternée gauche / droite */
+.graphic-showcase + .graphic-showcase { margin-top: 96px; }
+.graphic-showcase.reverse { grid-template-columns: 1.15fr 0.85fr; }
+.graphic-showcase.reverse .graphic-visual { order: 2; }
+.graphic-visual-free { aspect-ratio: auto; padding: 0; overflow: hidden; border: 1px solid var(--line); }
+.graphic-visual-free a { display: block; width: 100%; }
+.graphic-visual-free img { display: block; width: 100%; height: auto; }
+.graphic-visual-portrait { max-width: 340px; width: 100%; justify-self: center; }
+.graphic-visual-logo { background: #fff; padding: 32px; max-width: 400px; width: 100%; justify-self: center; }
 
 /* ============================================================
    Vidéo TikTok
@@ -1943,19 +1925,10 @@ html.has-cursor #gameCanvas { cursor: none; }
 /* Tablette : le logo Ô Natur'Elle ne prend plus toute la largeur */
 @media (max-width: 960px) {
   .graphic-visual { max-width: 460px; width: 100%; margin-inline: auto; }
-  /* Tablette : 2 lignes — les deux affiches (2:1), puis les deux carrés centrés au même gabarit */
-  .graphic-gallery { grid-template-columns: repeat(6, 1fr); row-gap: 24px; }
-  .gallery-item { grid-column: span 2; }
-  .gallery-item.gallery-wide { grid-column: span 4; }
-  .gallery-wide + .gallery-item + .gallery-item { grid-column: 2 / 4; }
-  .graphic-gallery-title { margin-top: 48px; }
-}
-/* Téléphone : les deux carrés côte à côte sur toute la largeur */
-@media (max-width: 560px) {
-  .graphic-gallery { column-gap: 12px; }
-  .gallery-item:nth-child(n+3),
-  .gallery-wide + .gallery-item + .gallery-item { grid-column: span 3; }
-  .gallery-item figcaption { font-size: 0.8rem; }
+  .graphic-showcase.reverse { grid-template-columns: 1fr; }
+  .graphic-showcase.reverse .graphic-visual { order: 0; }
+  .graphic-showcase + .graphic-showcase { margin-top: 64px; }
+  .graphic-visual-portrait { max-width: 320px; }
 }
 
 /* Petits téléphones */
