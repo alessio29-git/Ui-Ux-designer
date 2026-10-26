@@ -865,6 +865,35 @@ code { font-family: var(--font-mono); font-size: 0.9em; }
 .brand-palette span { width: 28px; height: 28px; border-radius: var(--radius-sm); border: 1px solid rgba(241,236,227,0.3); }
 .graphic-content h3 { font-size: 1.5rem; font-style: italic; font-weight: 500; margin-bottom: 12px; }
 
+/* Galerie : affiches (A4 paysage 2:1 avec le portrait), puis deux carrés */
+.graphic-gallery-title { font-size: 1.5rem; font-style: italic; font-weight: 500; margin: 72px 0 24px; }
+.graphic-gallery {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.gallery-item { margin: 0; grid-column: span 3; }
+.gallery-item.gallery-wide { grid-column: span 4; }
+.gallery-wide + .gallery-item { grid-column: span 2; }
+.gallery-item a {
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--transition-base);
+}
+.gallery-item a:hover img, .gallery-item a:focus-visible img { transform: scale(1.03); }
+.gallery-logo a { background: #fff; padding: 24px; }
+.gallery-item figcaption { margin-top: 12px; color: var(--ink); line-height: 1.45; }
+.gallery-item figcaption .case-tag { display: block; margin-bottom: 4px; }
+
 /* ============================================================
    Vidéo TikTok
    ============================================================ */
@@ -1915,6 +1944,9 @@ html.has-cursor #gameCanvas { cursor: none; }
 /* Tablette : le logo Ô Natur'Elle ne prend plus toute la largeur */
 @media (max-width: 960px) {
   .graphic-visual { max-width: 460px; width: 100%; margin-inline: auto; }
+  .graphic-gallery { grid-template-columns: 1fr; gap: 32px; }
+  .graphic-gallery .gallery-item { grid-column: auto; }
+  .graphic-gallery-title { margin-top: 56px; }
 }
 
 /* Petits téléphones */
